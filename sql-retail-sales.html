@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+  <title>Retail Sales Analysis using SQL | Pritam Sudhir Gangan</title>
+  <style>
+    :root{--bg:#080808;--card:#121212;--gold:#d6ad60;--gold-light:#f5d994;--text:#f5f2eb;--muted:#aaa49a;--border:rgba(214,173,96,.22)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font:16px/1.7 Arial,Helvetica,sans-serif}
+    a{color:var(--gold-light);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{width:min(92%,1050px);margin:auto}
+    header{border-bottom:1px solid var(--border);padding:18px 0;background:#0b0b0b}
+    .nav{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+    .brand{font-weight:700;color:var(--gold-light);letter-spacing:.4px}
+    .back{border:1px solid var(--border);border-radius:30px;padding:8px 15px}
+    .hero{padding:70px 0 45px}
+    .eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:bold}
+    h1{font-size:clamp(34px,6vw,58px);line-height:1.12;margin:14px 0}
+    h2{font-size:25px;color:var(--gold-light);margin-bottom:14px}
+    h3{font-size:18px;margin-bottom:8px;color:var(--gold-light)}
+    p{color:var(--muted);margin:8px 0 14px}
+    .status{display:inline-block;border:1px solid var(--gold);color:var(--gold-light);border-radius:20px;padding:4px 12px;font-size:13px;margin-top:12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:22px 0}
+    .card,section{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:23px}
+    section{margin:20px 0}
+    ul{padding-left:20px;color:var(--muted)}
+    li{margin:7px 0}
+    .tag{display:inline-block;border:1px solid var(--border);border-radius:20px;padding:5px 11px;margin:5px 5px 0 0;color:var(--gold-light);font-size:13px}
+    pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#050505;border:1px solid var(--border);border-radius:10px;padding:17px;color:#eee;font:13px/1.65 Consolas,monospace;margin:12px 0}
+    .note{border-left:3px solid var(--gold);padding:10px 14px;background:#17140e;color:var(--muted);margin-top:15px}
+    footer{text-align:center;padding:35px 0;color:var(--muted);border-top:1px solid var(--border);margin-top:45px}
+    @media(max-width:600px){.hero{padding:48px 0 30px}section,.card{padding:18px}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html">PRITAM SUDHIR GANGAN</a>
+    <a class="back" href="index.html">← Back to Portfolio</a>
+  </div>
+</header>
+
+<main class="container">
+  <div class="hero">
+    <div class="eyebrow">Data Analytics Project · SQL</div>
+    <h1>Retail Sales<br><span style="color:var(--gold-light)">Analysis using SQL</span></h1>
+    <p>A hands-on data analysis project designed to explore retail transactions, understand sales performance, and answer business questions using SQL.</p>
+    <span class="status">In Progress</span>
+  </div>
+
+  <div class="grid">
+    <div class="card"><h3>Project focus</h3><p>Retail sales, customer trends, product performance and revenue analysis.</p></div>
+    <div class="card"><h3>Primary tool</h3><p>SQL (queries, aggregations, joins and analysis).</p></div>
+    <div class="card"><h3>Project stage</h3><p>Project structure and analysis questions are being prepared. Results will be added after running the queries on the dataset.</p></div>
+  </div>
+
+  <section>
+    <h2>Project objectives</h2>
+    <ul>
+      <li>Calculate overall sales and transaction-level metrics.</li>
+      <li>Identify top-selling products and product categories.</li>
+      <li>Understand monthly and daily sales trends.</li>
+      <li>Explore customer purchasing patterns.</li>
+      <li>Convert query results into clear business insights.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Tools & concepts</h2>
+    <span class="tag">SQL</span><span class="tag">SELECT</span><span class="tag">WHERE</span>
+    <span class="tag">GROUP BY</span><span class="tag">ORDER BY</span><span class="tag">JOIN</span>
+    <span class="tag">Aggregate Functions</span><span class="tag">Subqueries</span>
+  </section>
+
+  <section>
+    <h2>Analysis questions</h2>
+    <div class="grid">
+      <div class="card"><h3>Sales performance</h3><p>What is the total revenue and number of transactions?</p></div>
+      <div class="card"><h3>Product performance</h3><p>Which products or categories generate the highest sales?</p></div>
+      <div class="card"><h3>Sales trends</h3><p>How do sales change month by month?</p></div>
+      <div class="card"><h3>Customer analysis</h3><p>Which customers contribute most to sales?</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sample SQL query templates</h2>
+    <p>The examples below use a planned table structure. Column and table names will be adjusted to match the final dataset before execution.</p>
+    <h3>1. Total sales</h3>
+    <pre>SELECT
+    SUM(quantity * unit_price) AS total_sales
+FROM retail_sales;</pre>
+    <h3>2. Sales by product category</h3>
+    <pre>SELECT
+    category,
+    SUM(quantity * unit_price) AS category_sales
+FROM retail_sales
+GROUP BY category
+ORDER BY category_sales DESC;</pre>
+    <h3>3. Top 10 products by sales</h3>
+    <pre>SELECT
+    product_name,
+    SUM(quantity * unit_price) AS total_sales
+FROM retail_sales
+GROUP BY product_name
+ORDER BY total_sales DESC
+FETCH FIRST 10 ROWS ONLY;</pre>
+    <h3>4. Monthly sales trend</h3>
+    <pre>SELECT
+    EXTRACT(YEAR FROM sale_date) AS sales_year,
+    EXTRACT(MONTH FROM sale_date) AS sales_month,
+    SUM(quantity * unit_price) AS monthly_sales
+FROM retail_sales
+GROUP BY
+    EXTRACT(YEAR FROM sale_date),
+    EXTRACT(MONTH FROM sale_date)
+ORDER BY sales_year, sales_month;</pre>
+    <div class="note">These are starter query templates, not claimed project results. Final queries and verified outputs will be published after the dataset is selected and the SQL is executed.</div>
+  </section>
+
+  <section>
+    <h2>Results & insights</h2>
+    <p>Results, charts and key business recommendations will be added here after completing the analysis. No sales figures or findings are displayed until they are calculated from the actual dataset.</p>
+    <span class="status">Awaiting dataset analysis</span>
+  </section>
+
+  <section>
+    <h2>Project files</h2>
+    <p>SQL scripts, dataset details and final documentation will be linked here when they are uploaded to GitHub.</p>
+    <p><a href="https://github.com/pritamgangan9422/pritam-portfolio" target="_blank" rel="noopener">View GitHub Portfolio ↗</a></p>
+  </section>
+</main>
+
+<footer>
+  <div class="container">© 2026 Pritam Sudhir Gangan · Retail Sales Analysis using SQL</div>
+</footer>
+</body>
+</html>
