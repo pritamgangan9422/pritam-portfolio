@@ -1,0 +1,151 @@
+sale_id,sale_date,customer_id,customer_name,product_id,product_name,category,quantity,unit_price,discount_percent
+1,2025-05-21,C001,Customer 1,P002,USB Keyboard,Electronics,2,799,0
+2,2025-02-22,C024,Customer 24,P003,Notebook,Stationery,5,80,0
+3,2025-01-17,C014,Customer 14,P010,Backpack,Fashion,1,1299,0
+4,2025-09-16,C008,Customer 8,P004,Ball Pen Pack,Stationery,5,120,0
+5,2025-11-29,C007,Customer 7,P009,Coffee Maker,Electronics,5,2499,5
+6,2025-10-29,C015,Customer 15,P004,Ball Pen Pack,Stationery,3,120,0
+7,2025-08-05,C023,Customer 23,P003,Notebook,Stationery,3,80,0
+8,2025-06-22,C007,Customer 7,P003,Notebook,Stationery,1,80,0
+9,2025-07-03,C004,Customer 4,P007,Running Shoes,Fashion,3,1899,10
+10,2025-01-23,C026,Customer 26,P005,Water Bottle,Home,4,250,10
+11,2025-07-13,C030,Customer 30,P002,USB Keyboard,Electronics,1,799,10
+12,2025-11-18,C027,Customer 27,P005,Water Bottle,Home,5,250,0
+13,2025-12-27,C007,Customer 7,P010,Backpack,Fashion,1,1299,0
+14,2025-05-29,C025,Customer 25,P004,Ball Pen Pack,Stationery,1,120,0
+15,2025-05-23,C013,Customer 13,P002,USB Keyboard,Electronics,4,799,15
+16,2025-07-09,C006,Customer 6,P006,Desk Lamp,Home,3,950,0
+17,2025-12-16,C023,Customer 23,P005,Water Bottle,Home,1,250,10
+18,2025-05-06,C018,Customer 18,P003,Notebook,Stationery,2,80,5
+19,2025-11-24,C009,Customer 9,P007,Running Shoes,Fashion,5,1899,0
+20,2025-01-29,C027,Customer 27,P006,Desk Lamp,Home,2,950,0
+21,2025-05-18,C013,Customer 13,P006,Desk Lamp,Home,1,950,0
+22,2025-06-11,C029,Customer 29,P010,Backpack,Fashion,2,1299,15
+23,2025-11-26,C013,Customer 13,P008,Cotton T-Shirt,Fashion,4,499,0
+24,2025-05-07,C005,Customer 5,P005,Water Bottle,Home,5,250,10
+25,2025-10-27,C024,Customer 24,P005,Water Bottle,Home,4,250,10
+26,2025-04-23,C012,Customer 12,P007,Running Shoes,Fashion,2,1899,10
+27,2025-01-25,C003,Customer 3,P008,Cotton T-Shirt,Fashion,1,499,0
+28,2025-12-15,C026,Customer 26,P003,Notebook,Stationery,4,80,10
+29,2025-07-15,C013,Customer 13,P002,USB Keyboard,Electronics,5,799,5
+30,2025-10-11,C009,Customer 9,P009,Coffee Maker,Electronics,1,2499,15
+31,2025-10-02,C022,Customer 22,P002,USB Keyboard,Electronics,3,799,15
+32,2025-05-31,C004,Customer 4,P006,Desk Lamp,Home,4,950,0
+33,2025-05-15,C001,Customer 1,P008,Cotton T-Shirt,Fashion,5,499,0
+34,2025-02-24,C030,Customer 30,P009,Coffee Maker,Electronics,3,2499,15
+35,2025-04-12,C020,Customer 20,P009,Coffee Maker,Electronics,2,2499,0
+36,2025-09-29,C018,Customer 18,P003,Notebook,Stationery,1,80,10
+37,2025-01-10,C016,Customer 16,P006,Desk Lamp,Home,1,950,0
+38,2025-01-30,C008,Customer 8,P005,Water Bottle,Home,2,250,10
+39,2025-09-06,C003,Customer 3,P002,USB Keyboard,Electronics,1,799,10
+40,2025-12-04,C005,Customer 5,P003,Notebook,Stationery,4,80,10
+41,2025-09-28,C009,Customer 9,P003,Notebook,Stationery,5,80,5
+42,2025-10-04,C030,Customer 30,P004,Ball Pen Pack,Stationery,2,120,15
+43,2025-12-10,C013,Customer 13,P005,Water Bottle,Home,3,250,5
+44,2025-03-03,C015,Customer 15,P009,Coffee Maker,Electronics,2,2499,0
+45,2025-01-11,C011,Customer 11,P002,USB Keyboard,Electronics,5,799,10
+46,2025-04-23,C019,Customer 19,P004,Ball Pen Pack,Stationery,1,120,0
+47,2025-02-04,C008,Customer 8,P001,Wireless Mouse,Electronics,1,599,0
+48,2025-05-02,C017,Customer 17,P002,USB Keyboard,Electronics,3,799,15
+49,2025-10-04,C007,Customer 7,P008,Cotton T-Shirt,Fashion,2,499,15
+50,2025-08-31,C019,Customer 19,P010,Backpack,Fashion,2,1299,5
+51,2025-02-18,C007,Customer 7,P007,Running Shoes,Fashion,1,1899,15
+52,2025-08-05,C012,Customer 12,P007,Running Shoes,Fashion,4,1899,5
+53,2025-12-01,C022,Customer 22,P001,Wireless Mouse,Electronics,1,599,0
+54,2025-06-23,C024,Customer 24,P007,Running Shoes,Fashion,1,1899,0
+55,2025-10-02,C007,Customer 7,P004,Ball Pen Pack,Stationery,4,120,0
+56,2025-05-23,C006,Customer 6,P007,Running Shoes,Fashion,4,1899,0
+57,2025-10-09,C015,Customer 15,P002,USB Keyboard,Electronics,1,799,0
+58,2025-01-08,C027,Customer 27,P009,Coffee Maker,Electronics,1,2499,0
+59,2025-09-06,C014,Customer 14,P003,Notebook,Stationery,4,80,0
+60,2025-01-31,C029,Customer 29,P007,Running Shoes,Fashion,2,1899,5
+61,2025-05-16,C013,Customer 13,P001,Wireless Mouse,Electronics,4,599,0
+62,2025-10-12,C023,Customer 23,P007,Running Shoes,Fashion,4,1899,0
+63,2025-04-22,C010,Customer 10,P004,Ball Pen Pack,Stationery,1,120,10
+64,2025-06-10,C002,Customer 2,P009,Coffee Maker,Electronics,1,2499,0
+65,2025-09-15,C016,Customer 16,P010,Backpack,Fashion,5,1299,0
+66,2025-02-11,C017,Customer 17,P001,Wireless Mouse,Electronics,2,599,0
+67,2025-12-12,C003,Customer 3,P010,Backpack,Fashion,2,1299,5
+68,2025-10-19,C029,Customer 29,P002,USB Keyboard,Electronics,2,799,10
+69,2025-11-14,C002,Customer 2,P010,Backpack,Fashion,1,1299,5
+70,2025-09-25,C019,Customer 19,P010,Backpack,Fashion,3,1299,0
+71,2025-06-10,C022,Customer 22,P004,Ball Pen Pack,Stationery,2,120,0
+72,2025-12-10,C005,Customer 5,P007,Running Shoes,Fashion,3,1899,5
+73,2025-02-07,C030,Customer 30,P006,Desk Lamp,Home,1,950,5
+74,2025-02-21,C019,Customer 19,P010,Backpack,Fashion,1,1299,10
+75,2025-05-16,C017,Customer 17,P004,Ball Pen Pack,Stationery,2,120,0
+76,2025-05-06,C029,Customer 29,P002,USB Keyboard,Electronics,3,799,0
+77,2025-10-06,C015,Customer 15,P003,Notebook,Stationery,3,80,10
+78,2025-12-08,C001,Customer 1,P009,Coffee Maker,Electronics,5,2499,0
+79,2025-03-10,C029,Customer 29,P002,USB Keyboard,Electronics,3,799,0
+80,2025-10-11,C024,Customer 24,P002,USB Keyboard,Electronics,2,799,0
+81,2025-04-18,C020,Customer 20,P005,Water Bottle,Home,3,250,0
+82,2025-09-08,C017,Customer 17,P005,Water Bottle,Home,3,250,0
+83,2025-08-05,C021,Customer 21,P002,USB Keyboard,Electronics,3,799,0
+84,2025-03-08,C011,Customer 11,P001,Wireless Mouse,Electronics,3,599,0
+85,2025-12-28,C018,Customer 18,P008,Cotton T-Shirt,Fashion,4,499,10
+86,2025-02-08,C004,Customer 4,P001,Wireless Mouse,Electronics,2,599,10
+87,2025-07-09,C027,Customer 27,P001,Wireless Mouse,Electronics,5,599,10
+88,2025-03-07,C014,Customer 14,P003,Notebook,Stationery,1,80,0
+89,2025-01-21,C029,Customer 29,P006,Desk Lamp,Home,3,950,0
+90,2025-02-22,C022,Customer 22,P004,Ball Pen Pack,Stationery,3,120,10
+91,2025-03-21,C020,Customer 20,P007,Running Shoes,Fashion,2,1899,0
+92,2025-07-31,C029,Customer 29,P003,Notebook,Stationery,1,80,0
+93,2025-07-30,C026,Customer 26,P006,Desk Lamp,Home,2,950,0
+94,2025-12-26,C026,Customer 26,P003,Notebook,Stationery,1,80,5
+95,2025-08-29,C028,Customer 28,P001,Wireless Mouse,Electronics,2,599,0
+96,2025-06-06,C012,Customer 12,P008,Cotton T-Shirt,Fashion,2,499,0
+97,2025-04-09,C022,Customer 22,P001,Wireless Mouse,Electronics,4,599,0
+98,2025-02-05,C028,Customer 28,P005,Water Bottle,Home,3,250,0
+99,2025-12-14,C013,Customer 13,P009,Coffee Maker,Electronics,5,2499,0
+100,2025-05-14,C004,Customer 4,P001,Wireless Mouse,Electronics,2,599,10
+101,2025-02-25,C002,Customer 2,P005,Water Bottle,Home,5,250,5
+102,2025-06-10,C024,Customer 24,P006,Desk Lamp,Home,4,950,10
+103,2025-07-17,C004,Customer 4,P009,Coffee Maker,Electronics,5,2499,0
+104,2025-12-29,C002,Customer 2,P005,Water Bottle,Home,4,250,0
+105,2025-10-03,C030,Customer 30,P009,Coffee Maker,Electronics,2,2499,0
+106,2025-12-07,C003,Customer 3,P007,Running Shoes,Fashion,3,1899,10
+107,2025-03-05,C022,Customer 22,P006,Desk Lamp,Home,3,950,10
+108,2025-07-29,C022,Customer 22,P005,Water Bottle,Home,3,250,5
+109,2025-03-07,C018,Customer 18,P005,Water Bottle,Home,2,250,5
+110,2025-03-31,C022,Customer 22,P007,Running Shoes,Fashion,5,1899,10
+111,2025-10-08,C013,Customer 13,P005,Water Bottle,Home,1,250,0
+112,2025-08-09,C007,Customer 7,P005,Water Bottle,Home,5,250,10
+113,2025-08-15,C015,Customer 15,P006,Desk Lamp,Home,4,950,15
+114,2025-08-31,C017,Customer 17,P004,Ball Pen Pack,Stationery,2,120,15
+115,2025-09-21,C010,Customer 10,P002,USB Keyboard,Electronics,5,799,0
+116,2025-05-01,C027,Customer 27,P002,USB Keyboard,Electronics,3,799,0
+117,2025-01-13,C005,Customer 5,P004,Ball Pen Pack,Stationery,1,120,0
+118,2025-02-07,C020,Customer 20,P008,Cotton T-Shirt,Fashion,4,499,5
+119,2025-12-23,C007,Customer 7,P010,Backpack,Fashion,4,1299,5
+120,2025-03-17,C008,Customer 8,P007,Running Shoes,Fashion,1,1899,0
+121,2025-04-01,C008,Customer 8,P007,Running Shoes,Fashion,5,1899,5
+122,2025-05-08,C018,Customer 18,P001,Wireless Mouse,Electronics,1,599,5
+123,2025-08-26,C026,Customer 26,P003,Notebook,Stationery,5,80,10
+124,2025-08-15,C011,Customer 11,P010,Backpack,Fashion,5,1299,15
+125,2025-10-08,C014,Customer 14,P009,Coffee Maker,Electronics,4,2499,0
+126,2025-05-13,C015,Customer 15,P008,Cotton T-Shirt,Fashion,2,499,15
+127,2025-09-24,C025,Customer 25,P005,Water Bottle,Home,4,250,15
+128,2025-08-14,C009,Customer 9,P004,Ball Pen Pack,Stationery,1,120,15
+129,2025-05-20,C008,Customer 8,P005,Water Bottle,Home,3,250,0
+130,2025-03-12,C003,Customer 3,P009,Coffee Maker,Electronics,2,2499,0
+131,2025-03-20,C023,Customer 23,P007,Running Shoes,Fashion,2,1899,0
+132,2025-06-19,C014,Customer 14,P007,Running Shoes,Fashion,5,1899,5
+133,2025-04-16,C002,Customer 2,P007,Running Shoes,Fashion,4,1899,5
+134,2025-01-11,C023,Customer 23,P010,Backpack,Fashion,5,1299,5
+135,2025-06-30,C001,Customer 1,P008,Cotton T-Shirt,Fashion,3,499,5
+136,2025-10-07,C018,Customer 18,P007,Running Shoes,Fashion,5,1899,0
+137,2025-05-20,C008,Customer 8,P008,Cotton T-Shirt,Fashion,4,499,5
+138,2025-06-22,C013,Customer 13,P001,Wireless Mouse,Electronics,4,599,15
+139,2025-08-28,C027,Customer 27,P003,Notebook,Stationery,2,80,10
+140,2025-07-21,C001,Customer 1,P009,Coffee Maker,Electronics,5,2499,10
+141,2025-11-26,C003,Customer 3,P001,Wireless Mouse,Electronics,4,599,0
+142,2025-01-26,C006,Customer 6,P008,Cotton T-Shirt,Fashion,3,499,5
+143,2025-08-21,C007,Customer 7,P006,Desk Lamp,Home,3,950,0
+144,2025-08-04,C009,Customer 9,P007,Running Shoes,Fashion,3,1899,0
+145,2025-10-04,C001,Customer 1,P008,Cotton T-Shirt,Fashion,1,499,0
+146,2025-02-05,C021,Customer 21,P004,Ball Pen Pack,Stationery,1,120,0
+147,2025-01-11,C007,Customer 7,P004,Ball Pen Pack,Stationery,5,120,0
+148,2025-08-31,C005,Customer 5,P004,Ball Pen Pack,Stationery,1,120,10
+149,2025-12-25,C015,Customer 15,P004,Ball Pen Pack,Stationery,3,120,0
+150,2025-11-07,C020,Customer 20,P003,Notebook,Stationery,1,80,0
