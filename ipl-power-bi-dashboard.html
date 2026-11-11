@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+  <title>IPL Data Analysis Dashboard | Pritam Sudhir Gangan</title>
+  <style>
+    :root{--bg:#080808;--card:#121212;--gold:#d6ad60;--gold-light:#f5d994;--text:#f5f2eb;--muted:#aaa49a;--border:rgba(214,173,96,.22)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font:16px/1.7 Arial,Helvetica,sans-serif}
+    a{color:var(--gold-light);text-decoration:none}a:hover{text-decoration:underline}
+    .container{width:min(92%,1050px);margin:auto}
+    header{border-bottom:1px solid var(--border);padding:18px 0;background:#0b0b0b}
+    .nav{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+    .brand{font-weight:700;color:var(--gold-light);letter-spacing:.4px}
+    .back{border:1px solid var(--border);border-radius:30px;padding:8px 15px}
+    .hero{padding:70px 0 45px}
+    .eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:bold}
+    h1{font-size:clamp(34px,6vw,58px);line-height:1.12;margin:14px 0}
+    h2{font-size:25px;color:var(--gold-light);margin-bottom:14px}
+    h3{font-size:18px;margin-bottom:8px;color:var(--gold-light)}
+    p{color:var(--muted);margin:8px 0 14px}
+    .status{display:inline-block;border:1px solid var(--gold);color:var(--gold-light);border-radius:20px;padding:4px 12px;font-size:13px;margin-top:12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:22px 0}
+    .card,section{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:23px}
+    section{margin:20px 0}
+    ul{padding-left:20px;color:var(--muted)}li{margin:7px 0}
+    .tag{display:inline-block;border:1px solid var(--border);border-radius:20px;padding:5px 11px;margin:5px 5px 0 0;color:var(--gold-light);font-size:13px}
+    .placeholder{min-height:190px;border:1px dashed rgba(214,173,96,.45);border-radius:12px;display:grid;place-items:center;text-align:center;padding:24px;color:var(--muted);background:#0b0b0b}
+    .note{border-left:3px solid var(--gold);padding:10px 14px;background:#17140e;color:var(--muted);margin-top:15px}
+    footer{text-align:center;padding:35px 0;color:var(--muted);border-top:1px solid var(--border);margin-top:45px}
+    @media(max-width:600px){.hero{padding:48px 0 30px}section,.card{padding:18px}}
+  </style>
+</head>
+<body>
+<header><div class="container nav">
+  <a class="brand" href="index.html">PRITAM SUDHIR GANGAN</a>
+  <a class="back" href="index.html">← Back to Portfolio</a>
+</div></header>
+
+<main class="container">
+  <div class="hero">
+    <div class="eyebrow">Data Analytics Project · Power BI</div>
+    <h1>IPL Data Analysis<br><span style="color:var(--gold-light)">Dashboard</span></h1>
+    <p>A Power BI project to explore Indian Premier League match data, team performance, player statistics and season trends through interactive visual reports.</p>
+    <span class="status">In Progress</span>
+  </div>
+
+  <div class="grid">
+    <div class="card"><h3>Project focus</h3><p>Team performance, player statistics, match outcomes and season-wise trends.</p></div>
+    <div class="card"><h3>Primary tool</h3><p>Microsoft Power BI Desktop.</p></div>
+    <div class="card"><h3>Project stage</h3><p>Dashboard plan and report sections are prepared. Visuals and findings will be added after building and validating the report.</p></div>
+  </div>
+
+  <section>
+    <h2>Project objectives</h2>
+    <ul>
+      <li>Compare IPL team performance across seasons.</li>
+      <li>Analyze top run scorers and wicket takers.</li>
+      <li>Explore match results, toss decisions and winning trends.</li>
+      <li>Compare venue-wise and season-wise performance.</li>
+      <li>Present useful insights through interactive Power BI visuals.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Tools & concepts</h2>
+    <span class="tag">Power BI Desktop</span><span class="tag">Power Query</span>
+    <span class="tag">Data Cleaning</span><span class="tag">Data Modeling</span>
+    <span class="tag">DAX Measures</span><span class="tag">Slicers</span>
+    <span class="tag">Cards</span><span class="tag">Charts</span>
+  </section>
+
+  <section>
+    <h2>Planned dashboard pages</h2>
+    <div class="grid">
+      <div class="card"><h3>1. Tournament overview</h3><p>Key tournament KPIs, total matches, teams, seasons and overall trends.</p></div>
+      <div class="card"><h3>2. Team performance</h3><p>Wins, losses, win percentage and season-wise team comparisons.</p></div>
+      <div class="card"><h3>3. Player analysis</h3><p>Batting and bowling leaderboards, runs, wickets and player comparisons.</p></div>
+      <div class="card"><h3>4. Match insights</h3><p>Toss decisions, match results, venues and win-type analysis.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Dashboard preview</h2>
+    <div class="placeholder">
+      <div><h3>Power BI dashboard preview will appear here</h3><p>Upload a screenshot of the completed Power BI report to replace this placeholder.</p></div>
+    </div>
+    <div class="note">No dashboard image, statistics or findings are fabricated. Verified visuals and insights will be published after the report is built from the selected IPL dataset.</div>
+  </section>
+
+  <section>
+    <h2>Key insights</h2>
+    <p>Team rankings, player leaders and match trends will be written here after analyzing the actual dataset in Power BI.</p>
+    <span class="status">Awaiting dashboard analysis</span>
+  </section>
+
+  <section>
+    <h2>Project files</h2>
+    <p>The Power BI report file (.pbix), dataset source and documentation will be linked here after they are prepared and uploaded to GitHub.</p>
+    <p><a href="https://github.com/pritamgangan9422/pritam-portfolio" target="_blank" rel="noopener">View GitHub Portfolio ↗</a></p>
+  </section>
+</main>
+<footer><div class="container">© 2026 Pritam Sudhir Gangan · IPL Data Analysis Dashboard</div></footer>
+</body>
+</html>
