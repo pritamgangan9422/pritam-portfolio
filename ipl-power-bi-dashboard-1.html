@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IPL Match & Team Analytics | Pritam Gangan</title>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#090b12;--panel:#151a26;--line:#293246;--gold:#e2bd45;--text:#f5f6fa;--muted:#a9b2c4;--green:#55c78a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Inter,Arial,sans-serif}
+.wrap{max-width:1180px;margin:auto;padding:24px 16px 60px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+.brand{color:var(--gold);font-size:12px;letter-spacing:2px;font-weight:800}.tag{border:1px solid var(--line);border-radius:30px;padding:7px 12px;color:var(--muted);font-size:12px}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:10px 0}h2{font-size:20px;margin:0 0 14px}p{color:var(--muted)}
+.note{padding:13px 15px;border:1px solid #675523;background:#211d10;border-radius:12px;color:#e8dfc2;margin:20px 0}
+.filters,.kpis,.charts,.twocol{display:grid;gap:14px}.filters{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin:20px 0}
+select,button{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--text);font-size:14px}
+label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.kpis{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:18px 0}
+.card,section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+.kpi small{display:block;color:var(--muted)}.kpi strong{display:block;font-size:27px;color:var(--gold);margin-top:4px}
+.charts{grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));margin:14px 0}
+.twocol{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));margin:14px 0}
+canvas{max-height:320px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--gold)}.scroll{overflow:auto}
+.status{font-size:13px;color:var(--green)}.error{color:#ff9d9d}.footer{color:var(--muted);font-size:12px;margin-top:25px}
+a{color:var(--gold)}.hidden{display:none}
+</style></head>
+<body><main class="wrap">
+<div class="top"><div><div class="brand">CRICKET ANALYTICS • PORTFOLIO PROJECT</div><h1>IPL Match & Team Analytics</h1><p>Explore Indian Premier League match outcomes, team wins, season trends, venues and Player of the Match awards.</p></div><div class="tag">2008–2024 • Match-level dataset</div></div>
+<div class="note"><b>Data transparency:</b> This dashboard uses a public historical match-level CSV (2008–2024) from the avinashyadav16/ipl-analytics GitHub repository. It is an independent portfolio analysis and is not affiliated with or endorsed by the BCCI or IPL. Player batting/bowling leaderboards (Orange/Purple Cap) require ball-by-ball data and are not represented on this match-level dashboard.</div>
+<p id="status" class="status">Loading historical IPL match data…</p>
+<div class="filters">
+<div><label for="season">Season</label><select id="season"><option value="all">All seasons</option></select></div>
+<div><label for="team">Team</label><select id="team"><option value="all">All teams</option></select></div>
+<div><label for="venue">Venue</label><select id="venue"><option value="all">All venues</option></select></div>
+<div><label>&nbsp;</label><button id="reset">Reset filters</button></div>
+</div>
+<div class="kpis">
+<div class="card kpi"><small>Matches</small><strong id="matches">—</strong></div>
+<div class="card kpi"><small>Teams represented</small><strong id="teams">—</strong></div>
+<div class="card kpi"><small>Venues</small><strong id="venues">—</strong></div>
+<div class="card kpi"><small>Matches with a winner</small><strong id="decided">—</strong></div>
+</div>
+<div class="charts">
+<section><h2>Team wins</h2><canvas id="teamChart"></canvas></section>
+<section><h2>Matches by season</h2><canvas id="seasonChart"></canvas></section>
+</div>
+<div class="twocol">
+<section><h2>Top venues by matches</h2><div class="scroll"><table><thead><tr><th>Venue</th><th>Matches</th></tr></thead><tbody id="venueRows"></tbody></table></div></section>
+<section><h2>Player of the Match awards</h2><div class="scroll"><table><thead><tr><th>Player</th><th>Awards</th></tr></thead><tbody id="pomRows"></tbody></table></div></section>
+</div>
+<section><h2>Season winners</h2><div class="scroll"><table><thead><tr><th>Season</th><th>Winner</th><th>Matches</th></tr></thead><tbody id="winnerRows"></tbody></table></div></section>
+<div class="footer">Source: <a href="https://github.com/avinashyadav16/ipl-analytics" target="_blank" rel="noopener">avinashyadav16/ipl-analytics</a> (matches_2008-2024.csv). Dashboard calculations run in your browser from the source CSV. Dataset field availability may vary by season.</div>
+</main>
+<script>
+const DATA_URL='https://raw.githubusercontent.com/avinashyadav16/ipl-analytics/main/matches_2008-2024.csv';
+let all=[],teamChart,seasonChart;
+const $=id=>document.getElementById(id);
+const norm=v=>(v??'').toString().trim();
+const unique=a=>[...new Set(a.map(norm).filter(Boolean))].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
+const countBy=(rows,key)=>{const m={};rows.forEach(r=>{const k=norm(r[key]);if(k)m[k]=(m[k]||0)+1});return m};
+const sorted=m=>Object.entries(m).sort((a,b)=>b[1]-a[1]);
+function fillSelect(id,values){const s=$(id);values.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o)})}
+function filtered(){
+ const s=$('season').value,t=$('team').value,v=$('venue').value;
+ return all.filter(r=>(s==='all'||norm(r.season)===s)&&
+ (t==='all'||norm(r.team1)===t||norm(r.team2)===t)&&
+ (v==='all'||norm(r.venue)===v));
+}
+function drawChart(old,ctx,labels,data,label,horizontal=false){
+ if(old)old.destroy();
+ return new Chart(ctx,{type:'bar',data:{labels,datasets:[{label,data,backgroundColor:'#e2bd45',borderRadius:6,borderSkipped:false}]},
+ options:{indexAxis:horizontal?'y':'x',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:true}},
+ scales:{x:{ticks:{color:'#cbd1dc'},grid:{color:'#293246'}},y:{ticks:{color:'#cbd1dc'},grid:{color:'#293246'}}}}});
+}
+function render(){
+ const rows=filtered(), decided=rows.filter(r=>norm(r.winner));
+ const teamWins={};decided.forEach(r=>{const w=norm(r.winner);teamWins[w]=(teamWins[w]||0)+1});
+ const seasons=countBy(rows,'season');
+ const venues=countBy(rows,'venue');
+ const poms=countBy(rows,'player_of_match');
+ const teams=new Set(rows.flatMap(r=>[norm(r.team1),norm(r.team2)]).filter(Boolean));
+ $('matches').textContent=rows.length.toLocaleString();
+ $('teams').textContent=teams.size;
+ $('venues').textContent=Object.keys(venues).length;
+ $('decided').textContent=decided.length.toLocaleString();
+ teamChart=drawChart(teamChart,$('teamChart'),sorted(teamWins).map(x=>x[0]),sorted(teamWins).map(x=>x[1]),'Wins',true);
+ const seasonSorted=Object.entries(seasons).sort((a,b)=>a[0].localeCompare(b[0],undefined,{numeric:true}));
+ seasonChart=drawChart(seasonChart,$('seasonChart'),seasonSorted.map(x=>x[0]),seasonSorted.map(x=>x[1]),'Matches');
+ const table=(id,entries)=>$(id).innerHTML=entries.length?entries.map(([k,v])=>`<tr><td>${escapeHtml(k)}</td><td>${v}</td></tr>`).join(''):'<tr><td colspan="2">No data for selected filters</td></tr>';
+ table('venueRows',sorted(venues).slice(0,10));
+ table('pomRows',sorted(poms).slice(0,10));
+ const seasonGroups={};rows.forEach(r=>{const s=norm(r.season),w=norm(r.winner);if(s){seasonGroups[s]??={winner:'—',matches:0};seasonGroups[s].matches++;if(w)seasonGroups[s].winner=w}});
+ $('winnerRows').innerHTML=Object.entries(seasonGroups).sort((a,b)=>a[0].localeCompare(b[0],undefined,{numeric:true})).map(([s,o])=>`<tr><td>${escapeHtml(s)}</td><td>${escapeHtml(o.winner)}</td><td>${o.matches}</td></tr>`).join('')||'<tr><td colspan="3">No data</td></tr>';
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+['season','team','venue'].forEach(id=>$(id).addEventListener('change',render));
+$('reset').addEventListener('click',()=>{['season','team','venue'].forEach(id=>$(id).value='all');render()});
+Papa.parse(DATA_URL,{download:true,header:true,dynamicTyping:false,skipEmptyLines:true,complete:r=>{
+ all=r.data.filter(x=>norm(x.id)&&norm(x.season));
+ if(!all.length){$('status').textContent='The source CSV loaded but no match rows were detected. Please check the source link.';$('status').className='error';return}
+ fillSelect('season',unique(all.map(x=>x.season)));
+ fillSelect('team',unique(all.flatMap(x=>[x.team1,x.team2])));
+ fillSelect('venue',unique(all.map(x=>x.venue)));
+ $('status').textContent=`Loaded ${all.length.toLocaleString()} historical matches successfully. Use the filters to explore the data.`;
+ render();
+},error:e=>{$('status').textContent='Could not load the public CSV. Check your internet connection and reload the page.';$('status').className='error'}});
+</script></body></html>
