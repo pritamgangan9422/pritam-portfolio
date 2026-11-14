@@ -6,7 +6,7 @@
 :root{--bg:#090b12;--panel:#151a26;--line:#293246;--gold:#e2bd45;--text:#f5f6fa;--muted:#a9b2c4}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Arial,sans-serif}.wrap{max-width:1180px;margin:auto;padding:24px 16px 60px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}.brand{color:var(--gold);font-size:12px;letter-spacing:2px;font-weight:800}.tag{border:1px solid var(--line);border-radius:30px;padding:7px 12px;color:var(--muted);font-size:12px}h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:10px 0}h2{font-size:20px;margin:0 0 14px}p{color:var(--muted)}.note{padding:13px 15px;border:1px solid #675523;background:#211d10;border-radius:12px;color:#e8dfc2;margin:20px 0}.filters,.kpis,.charts,.twocol{display:grid;gap:14px}.filters{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin:20px 0}.kpis{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:18px 0}.charts{grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));margin:14px 0}.twocol{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));margin:14px 0}select,button{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--text);font-size:14px}label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.card,section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}.kpi small{display:block;color:var(--muted)}.kpi strong{display:block;font-size:27px;color:var(--gold);margin-top:4px}canvas{max-height:320px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{color:var(--gold)}.scroll{overflow:auto}.status{font-size:13px;color:#55c78a}.error{color:#ff9d9d}.muted,.footer{color:var(--muted);font-size:12px}.footer{margin-top:25px}a{color:var(--gold)}
 </style></head><body><main class="wrap">
 <div class="top"><div><div class="brand">CRICKET ANALYTICS • PORTFOLIO PROJECT</div><h1>IPL Data Analytics Dashboard</h1><p>Explore IPL seasons, team performance, batting, bowling and venues.</p></div><div class="tag">2008–2025 • Interactive analysis</div></div>
-<div class="note"><b>Project note:</b> Match insights use the match-level CSV. Batter and bowler leaderboards need a valid ball-by-ball CSV. If that file is empty or its columns are unsupported, the dashboard will clearly show that the data is unavailable instead of inventing results.</div>
+<div class="note"><b>Project note:</b> Match insights use the match-level CSV. Batting and bowling leaderboards are calculated from the ball-by-ball CSV and linked to seasons using the match ID. Wickets exclude run outs and other non-bowler dismissals.</div>
 <p id="status" class="status">Loading IPL datasets…</p>
 <div class="filters"><div><label for="season">Season</label><select id="season"><option value="all">All seasons</option></select></div><div><label for="team">Team</label><select id="team"><option value="all">All teams</option></select></div><div><label for="venue">Venue</label><select id="venue"><option value="all">All venues</option></select></div><div><label>&nbsp;</label><button id="reset">Reset filters</button></div></div>
 <div class="kpis"><div class="card kpi"><small>Matches</small><strong id="matches">—</strong></div><div class="card kpi"><small>Teams</small><strong id="teams">—</strong></div><div class="card kpi"><small>Venues</small><strong id="venues">—</strong></div><div class="card kpi"><small>Matches with winner</small><strong id="decided">—</strong></div></div>
@@ -30,10 +30,35 @@ function filtered(){let s=$('season').value,t=$('team').value,v=$('venue').value
 function draw(old,ctx,labels,data,horizontal){if(old)old.destroy();return new Chart(ctx,{type:'bar',data:{labels,datasets:[{data,backgroundColor:'#e2bd45',borderRadius:6}]},options:{indexAxis:horizontal?'y':'x',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#cbd1dc'},grid:{color:'#293246'}},y:{ticks:{color:'#cbd1dc'},grid:{color:'#293246'}}}}})}
 function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function table(id,items,empty){$(id).innerHTML=items.length?items.map(([n,v])=>'<tr><td>'+esc(n)+'</td><td>'+Number(v).toLocaleString()+'</td></tr>').join(''):'<tr><td colspan="2">'+empty+'</td></tr>'}
-function playerTables(){if(!ballReady){table('batRows',[],'Ball-by-ball CSV is empty/unavailable');table('bowlRows',[],'Ball-by-ball CSV is empty/unavailable');return}
-let s=$('season').value,t=$('team').value,rs=balls.filter(r=>(s==='all'||val(r,['season','year'])===s)&&(t==='all'||val(r,['batting_team'])===t||val(r,['bowling_team'])===t)),bat={},bowl={};
-rs.forEach(r=>{let p=val(r,['batter','striker','batsman']),runs=Number(val(r,['batsman_runs','runs_off_bat','batter_runs'])||0);if(p)bat[p]=(bat[p]||0)+runs;let w=val(r,['bowler']),out=val(r,['player_dismissed','player_out']),kind=val(r,['wicket_type','kind','dismissal_kind']).toLowerCase();if(w&&out&&!['run out','retired hurt','obstructing the field'].includes(kind))bowl[w]=(bowl[w]||0)+1});
-table('batRows',sorted(bat).slice(0,10),'No batter columns found');table('bowlRows',sorted(bowl).slice(0,10),'No bowler/wicket columns found')}
+function playerTables(){
+ if(!ballReady){table('batRows',[],'Ball-by-ball CSV is empty/unavailable');table('bowlRows',[],'Ball-by-ball CSV is empty/unavailable');return}
+ // Join each delivery to the match file because the ball-by-ball CSV has match ID, not season.
+ const matchMap={};
+ matches.forEach(m=>{const id=val(m,['id','match_id']);if(id)matchMap[id]=m});
+ const seasonFilter=$('season').value,teamFilter=$('team').value;
+ const batterRuns={},bowlerWickets={};
+ const excludedKinds=['run out','retired hurt','obstructing the field','retired out'];
+ balls.forEach(r=>{
+  const match=matchMap[val(r,['id','match_id'])];
+  const season=match?val(match,['season','year']):val(r,['season','year']);
+  const battingTeam=val(r,['battingteam','batting_team']);
+  const team1=match?val(match,['team1']):'',team2=match?val(match,['team2']):'';
+  const bowlingTeam=battingTeam===team1?team2:(battingTeam===team2?team1:val(r,['bowlingteam','bowling_team']));
+  if(seasonFilter!=='all'&&season!==seasonFilter)return;
+  if(teamFilter!=='all'&&battingTeam!==teamFilter&&bowlingTeam!==teamFilter)return;
+  const batter=val(r,['batter','striker','batsman']);
+  const runs=Number(val(r,['batsmanrun','batsman_runs','runs_off_bat','batter_runs'])||0);
+  if(batter)batterRuns[batter]=(batterRuns[batter]||0)+runs;
+  const bowler=val(r,['bowler']);
+  const dismissed=val(r,['playerout','player_dismissed','player_out']);
+  const kind=val(r,['kind','wicket_type','dismissal_kind']).toLowerCase();
+  const wicketFlag=val(r,['iswicketdelivery','is_wicket_delivery']).toLowerCase();
+  const isWicket=wicketFlag==='1'||wicketFlag==='true'||(wicketFlag===''&&!!dismissed);
+  if(bowler&&dismissed&&isWicket&&!excludedKinds.includes(kind))bowlerWickets[bowler]=(bowlerWickets[bowler]||0)+1;
+ });
+ table('batRows',sorted(batterRuns).slice(0,10),'No batter data found');
+ table('bowlRows',sorted(bowlerWickets).slice(0,10),'No credited wicket data found');
+}
 function render(){let rs=filtered(),wins=countBy(rs,r=>val(r,['winning_team','winner'])),seasons=countBy(rs,r=>val(r,['season','year'])),venues=countBy(rs,r=>val(r,['venue','stadium'])),poms=countBy(rs,r=>val(r,['player_of_match','player_of_the_match'])),teams=new Set(rs.flatMap(r=>[val(r,['team1','team_1']),val(r,['team2','team_2'])]).filter(Boolean));
 $('matches').textContent=rs.length.toLocaleString();$('teams').textContent=teams.size;$('venues').textContent=Object.keys(venues).length;$('decided').textContent=Object.values(wins).reduce((a,b)=>a+b,0).toLocaleString();
 teamChart=draw(teamChart,$('teamChart'),sorted(wins).map(x=>x[0]),sorted(wins).map(x=>x[1]),true);let ss=Object.entries(seasons).sort((a,b)=>a[0].localeCompare(b[0],undefined,{numeric:true}));seasonChart=draw(seasonChart,$('seasonChart'),ss.map(x=>x[0]),ss.map(x=>x[1]),false);
